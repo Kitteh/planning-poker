@@ -33,7 +33,7 @@ export default class Game extends React.Component
         const API = new GameAPI();
         API.getGame(this.state.gameId).then((game)=>{
             // check if the player is already joined
-            let playerSessionId = sessionStorage.getItem(this.state.gameId + '-playerId');
+            let playerSessionId = localStorage.getItem(this.state.gameId + '-playerId');
             let index = game.data.getGame.players.items.findIndex(p => p.id == playerSessionId);
             let newPlayerId = null;
             if (index > 0){
@@ -59,7 +59,7 @@ export default class Game extends React.Component
         const API = new GameAPI();
         API.joinGame(this.state.gameId, playerName).then((playerId) => {
             this.setState({playerId: playerId});
-            sessionStorage.setItem(this.state.gameId + '-playerId', playerId);
+            localStorage.setItem(this.state.gameId + '-playerId', playerId);
         }).catch(reason => {
             this.logger.error(reason);
         });
